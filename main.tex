@@ -101,9 +101,24 @@
    \paragraph{}
    It should be noted that both of the following operations will result in the creation of a new species concept.
    \subsubsection{Removal of specimens from a species concept}
+   \paragraph{}
+   The creation of a species concept \textit{de novo} based on those specimens the author wishes to retain is perhaps the easiest way forward, however there may be merit in some instances of explicitly recording the removal of specimens in relation to an existing concept. The specimens to exclude are defined by $x_B$.
+   \[x_{new} = \{x_A|x_A \not\subset x_B\}\] 
    \subsubsection{Splitting of a species concept}
+   \paragraph{}
+   The same operation as above can be used, with $x_B$ as set representing a species concept rather than any set of specimens.
    
    \section{Remarks}
+   \paragraph{}
+   The ability to store and manipulate species concepts, whether they be \textit{de novo} concepts (such as from the description of new species) or relative to existing concepts (e.g. the creation or removal of synonymy) can be achieved simply through the use of sets of specimens, assuming that specimens have stable, persistent identifiers. The creation of new concepts becomes resource cheap and objective (at least in the definition of the concept).
+   
+   \paragraph{}
+   It is not currently feasible, and may never be, for the creator of a concept to identify all relevant digitised specimens that may form part of that concept. The creation of an objective list of specimens that were used to form that concept however is certainly feasible. Given the low cost of creating a new concept, it would be easy for other individuals and institutions to create a new concept that expands the original to include additional specimens (e.g. a taxonomist finds the species from a new area; a museum digitises its collection of \textit{Aus bus} and adds those specimens to the existing concept).
+   
+   \paragraph{}
+   Given that digitising efforts may focus on the primary types held by an institution, and that this metadata of specimens is almost certain to be recorded the creation of initial 'specimen species concepts' based solely on these type series could be achieved automatically, providing a starting concept dataset.
+   
+   \paragraph{}
    To create a usable system of species concepts based on specimens a robust citation system for concepts needs to be created, with persistent identifiers. Persistent identifiers would allow the easy expansion and changing of concepts as new specimens are collected or digitised. Life Sciences Identifiers (LSIDs) or Digital Object Identifiers (DOIs) could be used for this purpose.
    
    \printbibliography
