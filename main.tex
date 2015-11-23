@@ -1,17 +1,22 @@
 \documentclass{article}
-\title{The potential of using sets of specimens to handle species concepts: initial thoughts}
+\title{The potential of using sets of specimens to handle species concepts}
 \author{Ed Baker}
 \date{November 2015}
-\usepackage{biblatex}
+\usepackage{fancyhdr}
+\usepackage[]{biblatex}
 \addbibresource{refs.bib}
-\addbibresource{Mendeley.bib}
+\pagestyle{fancy}
+\lhead{EWB1}
 
 \begin{document}
    \maketitle
+   \begin{abstract}
+   	The use of notation and concepts from mathematical set theory is investigated as a method for describing species concepts, and potentially higher level taxa. These methods may facilitate the easy databasing of species concepts, allowing the concepts themselves to become citable through the provision of unique identifiers. The increase in unique identifiers (such as Life Science Identifiers or Digital Object Identifiers) for biological specimens in recent years may make this approach more feasible than it would have been previously.
+   \end{abstract}
    \tableofcontents
    \section{Problem}
    \paragraph{}
-   Recent increases in the rate of specimen digitisation in natural history museums (e.g. \cite{blagoderov2012}), combined with persistent identifiers for these specimens \cite{guralnick2015} allows for robust species concepts defined by a collection (set) of specimens. This paper experiments with using mathematical set notation to define operations on groups of specimens that may be considered equivalent to taxonomic and nomenclatural acts.
+   The idea od defining species concepts by collections of specimens has been previously proposed (e.g. \cite{berendsohn1995}). Recent increases in the rate of specimen digitisation in natural history museums (e.g. \cite{blagoderov2012}), combined with persistent identifiers for these specimens \cite{guralnick2015} allows for robust species concepts defined by a collection (set) of specimens. This paper experiments with using mathematical set notation (rather than the terminology used by \cite{franz2009}) to define operations on groups of specimens that may be considered equivalent to taxonomic and nomenclatural acts. These concepts could be used as basis for a repository of species concepts that are well-defined using specimens.
    \paragraph{}
    At the present time insufficient numbers of specimens have been assigned unique identifiers for this solution to be generally practical. It is presented here as an example potential use of unique identifiers, and to encourage discussion as to whether this approach has any merit (it may not).
    \paragraph{}
@@ -29,7 +34,7 @@
    
    \[x = \{s_1, s_2, s_3, ..., t_1, t_2, t_3, ...\}\]
    
-   A competent taxonomist takes this set of specimens, and sorts them into groups they consider to represent species. If the group has been recently well studied then the piles may each contain a single primary type.
+   A competent taxonomist takes this set of specimens, and sorts them into groups they consider to represent species. If the group has been recently well studied then the groups may each contain a single primary type.
 
    \[x_1 = \{s_1, ..., t_1\}\]
    \[x_2 = \{s_2, ..., t_2\}\]
@@ -77,7 +82,7 @@
    \paragraph{}
    \textbf{Define}  species concepts are \textit{consistent} when the only specimens not in the intersection of the two concepts are not placed in another concept by either author.
    \paragraph{}
-   $consitent(x_a,x_B) =$ $\forall x_n \notin x_A \cap x_B$  and $x_A, x_B$ not in other concepts by the same authors
+   $consitent(x_A,x_B) =$ $\forall x_n \notin x_A \cap x_B$  and $x_n$ not in other concepts by the same authors
    
    \section{Expanding scope of a species concept}
    \subsection{Identification of expanded scope}
@@ -97,6 +102,8 @@
    
    \section{Reducing scope of a species concept}
    \subsection{Identification of reduced scope}
+   Identification of a concept as a reduced set of another requires checking the latter concept is a subset of the former, with reduced cardinality.
+   \[x_A \in x_B|\left|x_A\right| < \left|x_B\right|\]
    \subsection{Reduction in scope}
    \paragraph{}
    It should be noted that both of the following operations will result in the creation of a new species concept.
@@ -115,13 +122,18 @@
    \paragraph{}
    It is not currently feasible, and may never be, for the creator of a concept to identify all relevant digitised specimens that may form part of that concept. The creation of an objective list of specimens that were used to form that concept however is certainly feasible. Given the low cost of creating a new concept, it would be easy for other individuals and institutions to create a new concept that expands the original to include additional specimens (e.g. a taxonomist finds the species from a new area; a museum digitises its collection of \textit{Aus bus} and adds those specimens to the existing concept).
    
-   \paragraph{}
+   \paragraph{Primary types as starting point}
    Given that digitising efforts may focus on the primary types held by an institution, and that this metadata of specimens is almost certain to be recorded the creation of initial 'specimen species concepts' based solely on these type series could be achieved automatically, providing a starting concept dataset.
+   
+   \paragraph{Taxonomic works}
+   If concepts are citable through a unique identifier then the authors of taxonomic works could unambiguously reference the specimens they used in their work. This would clearly indicate which specimens they considered to bea given species during their research.
+   
+   \paragraph{Specimen metrics}
+   The use of specimens in taxonomic works, if they can be cited, could be used as an indication of the taxonomic value of that specimen. This, when expanded to cover an institution, could also give rise to institutional metrics. Such metrics could be used to identify specimens that have not received recent attention and areas of collections that could benefit from increased levels of research.
    
    \paragraph{}
    To create a usable system of species concepts based on specimens a robust citation system for concepts needs to be created, with persistent identifiers. Persistent identifiers would allow the easy expansion and changing of concepts as new specimens are collected or digitised. Life Sciences Identifiers (LSIDs) or Digital Object Identifiers (DOIs) could be used for this purpose.
-   
-   \printbibliography
+   \printbibliography{}
 
 
 \end{document}
