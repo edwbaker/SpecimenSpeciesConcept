@@ -3,7 +3,7 @@
 \author{Ed Baker}
 \date{November 2015}
 \usepackage{fancyhdr}
-\usepackage[]{biblatex}
+\usepackage[style=numeric,sorting=none]{biblatex}
 \addbibresource{refs.bib}
 \pagestyle{fancy}
 \lhead{EWB1}
@@ -16,19 +16,31 @@
    \tableofcontents
    \section{Problem}
    \paragraph{}
-   The idea od defining species concepts by collections of specimens has been previously proposed (e.g. \cite{berendsohn1995}). Recent increases in the rate of specimen digitisation in natural history museums (e.g. \cite{blagoderov2012}), combined with persistent identifiers for these specimens \cite{guralnick2015} allows for robust species concepts defined by a collection (set) of specimens. This paper experiments with using mathematical set notation (rather than the terminology used by \cite{franz2009}) to define operations on groups of specimens that may be considered equivalent to taxonomic and nomenclatural acts. These concepts could be used as basis for a repository of species concepts that are well-defined using specimens.
+   The idea of defining species concepts by collections ("sets") of specimens (e.g. \cite{berendsohn1995,pullan2000}) and using mathematical sets (e.g. \cite{gregg1950,gregg1954} reviewed in a historical perspective by \cite{varma2013}) have been previously proposed. Recent increases in the rate of specimen digitisation in natural history museums (e.g. \cite{blagoderov2012}), combined with persistent identifiers for these specimens \cite{guralnick2015} allows for robust species concepts defined by a collection (set) of specimens. This paper experiments with using mathematical set notation (rather than the terminology used by \cite{franz2009}) to define operations on groups of specimens that may be considered equivalent to taxonomic and nomenclatural acts. These concepts could be used as basis for a repository of species concepts that are well-defined using specimens.
+   \paragraph{}
+   The mathematics of relational databases is understood in terms of manipulations (relations) of sets. The expression of taxonomic and nomenclatural acts as functions on sets may aid the design of systems that record and track species concepts, which will by necessity need to be stored in databases. This approach is the reverse of \cite{ytow2001} who developed an object-orientated model, and later showed it could be made into a relational database. Such a system could also be used to automatically describe relationships between subjects between taxonomic concepts as described by \cite{franz2009}.
+   %Why relational is fine here to respond to Rod
+   \subsection{What is a specimen?}
+   While most taxonomic databases deal with species scopes in the traditional sense of preserved museum specimens and published works (e.g. \cite{pullan2000}), increasingly surrogates of these specimens are used, such as nucleotide sequences. When defining a species concept it is possible to include non-type material that aid in forming a comprehensive knowledge of that species. These may include expanded range information from photographs, observations of living specimens, sound recordings and trace evidence. As biodiversity databases expand in scope and their use of stable, persistent identifiers there is scope for bringing these additional data into a digital species concept. 
    \paragraph{}
    At the present time insufficient numbers of specimens have been assigned unique identifiers for this solution to be generally practical. It is presented here as an example potential use of unique identifiers, and to encourage discussion as to whether this approach has any merit (it may not).
-   \paragraph{}
-   The mathematics of relational databases is understood in terms of manipulations (relations) of sets. The expression of taxonomic and nomenclatural acts as functions on sets may aid the design of systems that record and track species concepts, which will by necessity need to be stored in databases. This approach is the reverse of \cite{ytow2001} who developed an object-orientated model, and later showed it could be made into a relational database.
+   \subsection{Competing hypotheses}
+   While existing databases, explicitly or implicitly, handle specimens as sets of specimens, these are not currently interlinked. Whether a separate system is needed to handle concepts, or whether this problem could best be solved by building on top of an existing tool (e.g. GBIF) is open to discussion. Global databases tend to have a single consensus taxonomy to maximise the usefulness of their data to scientists who are not taxonomic experts in a given area. As species concepts are hypotheses and subject to continuous change and reinterpretation the formation of a separate repository for these may be a better choice. Methods for managing competing concepts have been developed (e.g. Prometheus \cite{pullan2000}) but do not make use of external identifiers.
+
    \subsection{Reduction of problem}
    Species concepts are generally considered to comprise all organisms that are defined by that concept, that is to say that all wild living organisms that match the description and primary types are included. Placing the entirety of a population into a set is impractical, so here concepts are confined to specimens. Specimens are increasingly citable 'objects' and are here considered to include physical specimens, nucleotide sequences, etc. These concept sets may be considered to be a representative subset of the population if philosophically desirable.
-   \paragraph{}
-   This work deals solely with the species concept. Similarly methods (nested sets) could be applied to genus- and family- group concepts if so desired, with modification for the differing method of type-designation at these levels.
+   \paragraph{Species}
+   This work deals with functions that can be applied to sets of specimens considered to be species. The application of these methods to higher ranks is discussed towards the end of the manuscript.
    \paragraph{}
    This paper does not deal with publications for the purpose of clarity. The association of publications of new species with their type specimens is straightforward, if time consuming for the historical literature. It is hoped that any real world system would have this functionality.
    \subsection{Nomenclature}
    The assignment of scientific names to species concepts is a great aid in communicating about organisms. This approach does not change anything relating to the naming of concepts. If anything it may help with algorithmically determining the name of a species concept based on specimens.
+   \paragraph{Algorthmic codes}
+   The development of open 'algorithmic codes', based on the current nomenclatural codes, that can be implemented on top of existing systems, could be a productive project for future biodiversity informatics initiatives. Such a system, particularly if developed collaboratively, could reveal (and perhaps prevent) nomenclatural issues in the global databases that are becoming an increasingly important part of the digital biodiversity landscape.
+   \paragraph{}
+   This preliminary study shows that it is possible to represent at least some nomenclatural functions, such as identifying the primary type of a collection of specimens representing a species, as mathematical functions on sets. Further work in this area could develop algorithmic tools for more common nomenclatural functions.
+   \paragraph{}
+   An ideal situation would be where intervention is needed only when special action has been taken within the scope of the nomenclatural codes (e.g. supression of names, neotype designation). If these acts were to be published in a machine-readable format, systems could be developed that are aware of these acts and take them into account during their processing. 
    \section{Introduction}
    We consider x to be a collection (set) of specimens ($s_1, s_2, s_3, ...$) including a number of primary type specimens ($t_1, t_2, t_3, ...$).
    
@@ -45,7 +57,7 @@
    Each $x_n$ is a species concept, typified by the specimen $t_n$ when there is a single primary type. No specimen appears in more than one subset.
    
    \subsection{Synonymy}
-   If the taxonomist selected set contains multiple primary types this is an indication of synonymy.
+   If the taxonomist selected set contains multiple primary types, and is to be considered representative of a species, this is an indication of synonymy.
    
    \[x_n = \{s_a, s_b, s_c, ..., t_x, t_y\}\]
    
@@ -72,6 +84,8 @@
    The identity of species concepts in this scheme occurs when the concepts are sets containing the same specimens. Identity between concepts is potentially not the most useful way of determining if two or more sets are compatible (see Consistency). The mathematical identity of two sets is equivalent to each set being a subset of the other.
 
    \subsection{Consistency of species concepts}
+   When aggregating multiple biodiversity datasets into a single resource there must be some assurance that concepts of the same taxon between them are consistent (i.e. that Species A in dataset 1 is meant to represent the same taxon as Species A in dataset 2). This problem is discussed in \cite{thau2010,franz2014}.
+   \paragraph{}
    Test to see if two, non-identical, species concepts are compatible.
    \newline\newline
    Author A: $x_A = \{x_1, x_2, x_3\}$ \newline
@@ -95,7 +109,7 @@
    
    section{Addition of a specimen to a species concept}
    Adding a specimen to an existing species concept can be achieved through the union of that concept with the new specimen.
-   \[x_B = x_A \cup x_4\]
+   \[x_B = x_A \cup \{x_4\}\]
    
    \subsubsection{Synonymy of two previous species concepts}
    If two concepts, both previously considered to be valid, are found to be synonyms of each other then a new concept can be created that is the union of these two.
@@ -111,7 +125,7 @@
    \subsubsection{Removal of specimens from a species concept}
    \paragraph{}
    The creation of a species concept \textit{de novo} based on those specimens the author wishes to retain is perhaps the easiest way forward, however there may be merit in some instances of explicitly recording the removal of specimens in relation to an existing concept. The specimens to exclude are defined by $x_B$.
-   \[x_{new} = \{x_A|x_A \not\subset x_B\}\] 
+   \[x_{new} = x_A|\forall x \in x_A, x \notin x_B\] 
    \subsubsection{Splitting of a species concept}
    \paragraph{}
    The same operation as above can be used, with $x_B$ as set representing a species concept rather than any set of specimens.
@@ -123,19 +137,38 @@
    \paragraph{}
    It is not currently feasible, and may never be, for the creator of a concept to identify all relevant digitised specimens that may form part of that concept. The creation of an objective list of specimens that were used to form that concept however is certainly feasible. Given the low cost of creating a new concept, it would be easy for other individuals and institutions to create a new concept that expands the original to include additional specimens (e.g. a taxonomist finds the species from a new area; a museum digitises its collection of \textit{Aus bus} and adds those specimens to the existing concept).
    
+   \paragraph{Proliferation of concepts}
+   The ease at which a digital system based on these ideas would allow new concepts to be published could potentially lead to a large number of similar concepts. The development of functions that measure the consistency of species concepts, perhaps the one described here, could be used to identify these concepts. The development of consensus concepts, either automatically or (like at present) groups of experts, would benefit the end users of taxonomic information, such as ecologists. 
+   
    \paragraph{Primary types as starting point}
    Given that digitising efforts may focus on the primary types held by an institution, and that this metadata of specimens is almost certain to be recorded the creation of initial 'specimen species concepts' based solely on these type series could be achieved automatically, providing a starting concept dataset.
    
    \paragraph{Taxonomic works}
    If concepts are citable through a unique identifier then the authors of taxonomic works could unambiguously reference the specimens they used in their work. This would clearly indicate which specimens they considered to bea given species during their research.
    
+   \paragraph{Specimen history}
+   A database such as that proposed could also be used to determine the identification history of individual specimens.
+   %Give example
+   
    \paragraph{Specimen metrics}
    The use of specimens in taxonomic works, if they can be cited, could be used as an indication of the taxonomic value of that specimen. This, when expanded to cover an institution, could also give rise to institutional metrics. Such metrics could be used to identify specimens that have not received recent attention and areas of collections that could benefit from increased levels of research.
    
    \paragraph{}
    To create a usable system of species concepts based on specimens a robust citation system for concepts needs to be created, with persistent identifiers. Persistent identifiers would allow the easy expansion and changing of concepts as new specimens are collected or digitised. Life Sciences Identifiers (LSIDs) or Digital Object Identifiers (DOIs) could be used for this purpose.
+   
+   \subsection{Beyond the species}
+   While ranks above species have other concepts as their type, they too can be represented as sets. These could be representated as 'sets of sets' (e.g. a genus is a set of species concepts). As species in this model are treated as sets of specimens and the genus is a set of species, the genus can be regarded as containing not only all of the specimens in its constituent species, but also the metadata about the species themselves (through the hypothetical metadata object, or another abstraction). These sets will require different methods to determine some of their properties (it is not always possible to algorithmically determine the type species of a genus, for example).
+   
+   \subsubsection{Gregg's Paradox}
+   J. R. Gregg \cite{gregg1954} showed that treating taxon concepts as sets poses an issue for monotypic taxa within the Linnean hierarchy. If a species is the sole representative of a genus, then these two ranks are defined by the same set of specimens (if the set is considered to extend to all organisms defined by that taxon). Even in the more limited scope of museum specimens used here this problem is likely to still arise. The problem was termed Gregg's Paradox by Buck and Hull \cite{buckandhull1966}.
+   \paragraph{}
+   Various solutions to Gregg's Paradox have been proposed that preserve the set theoretic nature of his work \cite{buckandhull1966,parkerrhodes1957,sklar1964}. Buck and Hull \cite{buckandhull1966} propose defining sets based on their characters, and arbitrarily defining different levels of the Linnean hierarchy for monotypic taxa. Sklar \cite{sklar1964} promotes the inclusion of a unique 'index object' in each set, so that nested monotypic taxa are unique on the basis of the inclusion of additional index sets as the taxonomic rank increases.
+   \paragraph{}
+   If a database based on specimen species concepts is created, it is almost inevitable that these concepts will have associated metadata (authorship, date created, etc). Gregg's Paradox could therefore be resolved through the use of a hypothetical 'metadata object', analogous to the 'index object' of Sklar. This hypothetical object could be used to distinguish between the nested sets of monotypic taxa where this is useful, and ignored when it is not. The metadata described in \cite{pullan2000} for the "Nomenclatural Taxon" would provide a suitable metadata object.
+   \section{Acknowledgements}
+   Initially I had based this idea just on species concepts, being somewhat aware that expanding up the Linnean hierarchy would introduce complexities. Rod Page was the inspiration for taking this part of the article somewhat further.
+   \paragraph{}
+   Vince Smith, taxonbytes and Robert Morris provided comments on an earlier draft of this manuscript.
    \printbibliography{}
-
-
 \end{document}
 
